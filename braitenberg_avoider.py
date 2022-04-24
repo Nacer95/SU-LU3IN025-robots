@@ -1,0 +1,39 @@
+def step(robotId, sensors): # <<<<<<<<<------- fonction à modifier pour le TP1
+
+    # sensors: dictionnaire contenant toutes les informations senseurs
+    # Chaque senseur renvoie:
+    #   la distance à l'obstacle (entre 0  et 1, distance max)
+    #   s'il s'agit d'un robot ou non
+    #   la distance au robot (= 1.0 s'il n'y a pas de robot)
+    #   la distance au mur (= 1.0 s'il n'y a pas de robot)
+    # cf. exemple ci-dessous
+
+    # récupération des senseurs
+
+    sensors = get_extended_sensors(sensors)
+    print (
+        "[robot #",robotId,"] senseur frontal: (distance à l'obstacle =",sensors["sensor_front"]["distance"],")",
+        "(robot =",sensors["sensor_front"]["isRobot"],")",
+        "(distance_to_wall =", sensors["sensor_front"]["distance_to_wall"],")", # renvoie 1.0 si ce n'est pas un mur
+        "(distance_to_robot =", sensors["sensor_front"]["distance_to_robot"],")"  # renvoie 1.0 si ce n'est pas un robot
+    )
+
+    # contrôle moteur. Ecrivez votre comportement de Braitenberg ci-dessous.
+    # il est possible de répondre à toutes les questions en utilisant seulement:
+    #   sensors["sensor_front"]["distance_to_wall"]
+    #   sensors["sensor_front"]["distance_to_robot"]
+    #   sensors["sensor_front_left"]["distance_to_wall"]
+    #   sensors["sensor_front_left"]["distance_to_robot"]
+    #   sensors["sensor_front_right"]["distance_to_wall"]
+    #   sensors["sensor_front_right"]["distance_to_robot"]
+    (sensors["sensor_front"]["distance_to_wall"]==1.0 
+
+
+    translation = 1 * sensors["sensor_front"]["distance"]
+    rotation = (-1) * sensors["sensor_front_left"]["distance"]* sensors["sensor_front"]["distance"] + (1) * sensors["sensor_front_right"]["distance"]
+
+    # limite les valeurs de sortie entre -1 et +1
+    translation = max(-1,min(translation,1))
+    rotation = max(-1, min(rotation, 1))
+
+    return translation, rotation
